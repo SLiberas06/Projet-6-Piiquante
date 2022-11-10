@@ -1,5 +1,6 @@
 const Sauce = require("../models/Sauce");
 const fs = require("fs");
+const Thing = require("../../../../Cours Javascript/cours backend/VendreMesObjets/backend/models/Thing");
 
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
@@ -40,9 +41,24 @@ exports.deleteSauce = (req, res, next) => {
   .catch(error => res.status(500).json({ error }));
 };
 
-exports.modifySauce = (req, res, next)=>{
-  
-  Sauce.updateOne({_id: req.params.id},{...req.body, _id:req.params.id})
-  .then(()=> res.status(200).json({message:'Sauce modifiée !'}))
-  .catch(error => res.status(400).json({error}));
+exports.modifySauce = (req, res, next) => {
+  const sauceObject = req.file ? {
+    ...JSON.parse(req.body.sauce),
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  } : {...req.body };
+
+  delete sauceObject._userId;
+  Sauce.findOne({_id: req.params.id})
+    .then((sauce) => {
+      if (sauce.userId != req.auth.userId) {
+        res.status(401).json({ message : "Non authorisé"});
+      } else {
+        Sauce.updateOne({ _id: req.params.id}, {...sauceObject, _id: req.params.id})
+        .then(() => res.status(200).json({message: 'Sauce modifiée avec succés!'}))
+        .catch(error => res.status(401).json({ error }));
+      }
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
 };
