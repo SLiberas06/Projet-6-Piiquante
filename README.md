@@ -1,9 +1,11 @@
 # Projet-6-Piiquante
- Construire une API sécurisée pour une application d'avis gastronomiques
- 
-Lancer le server Frontend : npm run start (ng server) = localhost:4200;
+Construire une API sécurisée pour une application d'avis gastronomiques
+
+Pour commencer lancer npm install ;
 
 Lancer le server Backend : nodemon server (ou npm run start) = localhost:3000;
+
+Lancer le server Frontend : npm run start (ng server) = localhost:4200;
 
 Un CORS est intégré dans le Backend afin de sécurisé les requêtes entre les deux servers qui sont dans deux ports différents;
 
