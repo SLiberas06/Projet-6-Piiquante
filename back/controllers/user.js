@@ -1,7 +1,12 @@
-const bcrypt = require('bcrypt');
-const jsonWebToken = require('jsonwebtoken');
-const User = require('../models/User');
+const bcrypt = require('bcrypt');//pour haché le mot de passe user
+const jsonWebToken = require('jsonwebtoken');//vérification et validation du token
+const User = require('../models/User');//importation du modèle 'User'
 
+require('dotenv').config();//configuration du fichier .env
+const userToken = process.env.TOKEN;//Token caché dans le fichier .env (sécurisé)
+
+
+//Inscription utilisateur
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
@@ -16,6 +21,7 @@ exports.signup = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+//Connexion utilisateur 
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
     .then(user=> {
@@ -31,7 +37,7 @@ exports.login = (req, res, next) => {
                 userId: user._id,
                 token:jsonWebToken.sign(
                     { userId: user._id },
-                    'RANDOM_TOKEN_SECRET',
+                    userToken,
                     { expiresIn: '24h' }
                 )
             });

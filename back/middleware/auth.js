@@ -1,13 +1,12 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');//verification et validation du token
 require('dotenv').config();
 
-const monToken = process.env.TOKEN;
-console.log(monToken);
-
+//constante de l'appel de la string du Token placé dans .env (sécurisé)
+const authToken = process.env.TOKEN;
 module.exports =(req, res, next) =>{
     try{
         const token = req.headers.authorization.split(" ")[1];
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+        const decodedToken = jwt.verify(token, authToken);
         const userId = decodedToken.userId;
         req.auth = {
             userId: userId
