@@ -2,7 +2,7 @@ require("dotenv").config(); //import du fichier .env pour sécuriser les éléme
 const express = require("express"); //pour une meilleure pratique de node.js
 const mongoose = require("mongoose"); //import d'une base de donnée
 const path = require("path"); //import pour traiter des chemins de fichiers (images)
-const cors = require("cors");
+
 
 //constante de l'appel de la string de connexion à mongoDb placé dans .env (sécurisé)
 const mongoDB = process.env.MONGODB;
