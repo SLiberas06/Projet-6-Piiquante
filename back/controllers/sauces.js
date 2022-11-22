@@ -124,7 +124,7 @@ exports.likeSauce = (req, res, next) => {
       .then(() =>
         res
           .status(200)
-          .json({ message: "Votre avis a bien été pris en compte!" })
+          .json({ message: "Votre avis a bien été ajouté!" })
       )
       .catch((error) => res.status(400).json({ error }));
   });
