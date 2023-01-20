@@ -12,10 +12,10 @@ export class SaucesService {
   sauces$ = new Subject<Sauce[]>();
 
   constructor(private http: HttpClient,
-              private auth: AuthService) {}
+    private auth: AuthService) { }
 
   getSauces() {
-    this.http.get<Sauce[]>('https://piiquante-api-production.up.railway.app/api/sauces').pipe(
+    this.http.get<Sauce[]>('https://dwdavidmichel601112021-production.up.railway.app/api/sauces').pipe(
       tap(sauces => this.sauces$.next(sauces)),
       catchError(error => {
         console.error(error.error.message);
