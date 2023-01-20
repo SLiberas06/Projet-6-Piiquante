@@ -19,7 +19,7 @@ app.use(express.json());
 mongoose
   .connect(mongoDB)
   .then(() => console.log("Connexion à MongoDB réussie !"))
-  .catch(() => console.log("Connexion à MongoDB échouée !"));
+  .catch(() => console.log("Connexion à MongoDB échouée !", err));
 
 //Cors = partage des ressources entre origines multiples, permet de sécurisé le transfert des données entre deux PORT differents (front:4200/back:3000)
 app.use((req, res, next) => {
